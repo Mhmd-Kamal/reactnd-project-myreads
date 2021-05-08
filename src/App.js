@@ -26,21 +26,18 @@ class BooksApp extends React.Component {
       booksOnShelves.map((book) => {
         if (book.id === result.id) {
           newResult = { ...result, shelf: book.shelf };
-          // console.log(newResult);
         }
       });
-      // console.log(newResult);
+
       return newResult;
     });
-    // return resultWithShelf;
+
     this.setState({ searchResult: resultWithShelf });
   };
 
   updateShelf = (shelf, id) => {
     BooksAPI.update({ id: id }, shelf).then(() => {
-      // console.log(books);
       BooksAPI.getAll().then((books) => {
-        // console.log(books);
         this.setState({ books: books });
         this.copyShelfState(this.state.searchResult, this.state.books);
       });
@@ -49,7 +46,6 @@ class BooksApp extends React.Component {
 
   componentDidMount() {
     BooksAPI.getAll().then((books) => {
-      // console.log(books);
       this.setState({ books: books });
     });
   }

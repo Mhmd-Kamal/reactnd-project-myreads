@@ -3,19 +3,7 @@ import { Link } from "react-router-dom";
 import * as BooksAPI from "../BooksAPI";
 import Book from "./Book";
 class SearchPage extends Component {
-  // state = { searchResult: [] };
-
-  // handleChange = (event) => {
-  //   BooksAPI.search(event.target.value).then((searchResult) => {
-  //     const resultWithShelf = copyShelfState(searchResult, this.props.books);
-
-  //     console.log("resultWithShelf", resultWithShelf);
-  //     this.setState({ searchResult: resultWithShelf });
-  //   });
-  // };
-
   render() {
-    // console.log("result", this.props.searchResult);
     return (
       <div>
         <div className="search-books">
@@ -44,33 +32,4 @@ class SearchPage extends Component {
   }
 }
 
-// const copyShelfState = (searchResult, booksOnShelves) => {
-//   const resultWithShelf = searchResult.map((result) => {
-//     // console.log(this.props.books);
-//     let newResult = result;
-//     booksOnShelves.map((book) => {
-//       if (book.id === result.id) {
-//         newResult = { ...result, shelf: book.shelf };
-//         console.log(newResult);
-//       }
-//     });
-//     // console.log(newResult);
-//     return newResult;
-//   });
-//   return resultWithShelf;
-// };
-
 export default SearchPage;
-// console.log(searchResult);
-// const resultWithShelf = searchResult.map((result) => {
-//   // console.log(this.props.books);
-//   let newResult = result;
-//   this.props.books.map((book) => {
-//     if (book.id === result.id) {
-//       newResult = { ...result, shelf: book.shelf };
-//       console.log(newResult);
-//     }
-//   });
-//   // console.log(newResult);
-//   return newResult;
-// });
