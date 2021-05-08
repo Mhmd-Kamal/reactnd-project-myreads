@@ -9,6 +9,31 @@ import BooksList from "./Components/BooksList";
 class BooksApp extends React.Component {
   state = {
     books: [],
+    searchResult: [],
+  };
+
+  handleSearch = (event) => {
+    BooksAPI.search(event.target.value).then((searchResult) => {
+      this.copyShelfState(searchResult, this.state.books);
+    });
+  };
+
+  // copy shelf state of my books to search results
+  copyShelfState = (searchResult, booksOnShelves) => {
+    const resultWithShelf = searchResult.map((result) => {
+      // console.log(this.props.books);
+      let newResult = result;
+      booksOnShelves.map((book) => {
+        if (book.id === result.id) {
+          newResult = { ...result, shelf: book.shelf };
+          // console.log(newResult);
+        }
+      });
+      // console.log(newResult);
+      return newResult;
+    });
+    // return resultWithShelf;
+    this.setState({ searchResult: resultWithShelf });
   };
 
   updateShelf = (shelf, id) => {
@@ -17,6 +42,7 @@ class BooksApp extends React.Component {
       BooksAPI.getAll().then((books) => {
         // console.log(books);
         this.setState({ books: books });
+        this.copyShelfState(this.state.searchResult, this.state.books);
       });
     });
   };
@@ -38,7 +64,13 @@ class BooksApp extends React.Component {
           />
           <Route
             path="/search"
-            render={() => <SearchPage books={this.state.books} updateShelf={this.updateShelf} />}
+            render={() => (
+              <SearchPage
+                searchResult={this.state.searchResult}
+                handleSearch={this.handleSearch}
+                updateShelf={this.updateShelf}
+              />
+            )}
           />
         </div>
       </Router>
