@@ -29,7 +29,7 @@ class BooksList extends Component {
         </div>
         <div className="open-search">
           <Link to="/search">
-            <button>Add a book</button>
+            <button onClick={this.props.resetSearch}>Add a book</button>
           </Link>
         </div>
       </div>

@@ -13,9 +13,15 @@ class BooksApp extends React.Component {
   };
 
   handleSearch = (event) => {
-    BooksAPI.search(event.target.value).then((searchResult) => {
-      this.copyShelfState(searchResult, this.state.books);
-    });
+    BooksAPI.search(event.target.value)
+      .then((searchResult) => {
+        // console.log(searchResult);
+        this.copyShelfState(searchResult, this.state.books);
+      })
+      .catch((err) => {
+        console.log(err);
+        this.setState({ searchResult: [] });
+      });
   };
 
   // copy shelf state of my books to search results
@@ -49,6 +55,11 @@ class BooksApp extends React.Component {
       this.setState({ books: books });
     });
   }
+
+  resetSearch = () => {
+    this.setState({ searchResult: [] });
+  };
+
   render() {
     return (
       <Router>
@@ -56,7 +67,13 @@ class BooksApp extends React.Component {
           <Route
             exact
             path="/"
-            render={() => <BooksList books={this.state.books} updateShelf={this.updateShelf} />}
+            render={() => (
+              <BooksList
+                books={this.state.books}
+                updateShelf={this.updateShelf}
+                resetSearch={this.resetSearch}
+              />
+            )}
           />
           <Route
             path="/search"
